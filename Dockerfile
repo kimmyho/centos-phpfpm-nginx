@@ -1,4 +1,4 @@
-FROM https://github.com/ppongsak/centos-phpfpm:latest
+FROM centos-phpfpm:latest
 
 # update package
 
