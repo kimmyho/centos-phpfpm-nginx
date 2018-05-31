@@ -6,7 +6,8 @@ MAINTAINER "Pongsk Prabparn" <pongsak@rebatemango.com>
 RUN yum -y update
 
 # Installing nginx
-FROM nginx:1.14.0
+#FROM nginx:1.14.0
+RUN yum -y install nginx
 
 # Installing supervisor
 RUN yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm && \
