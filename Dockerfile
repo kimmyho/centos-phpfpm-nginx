@@ -1,5 +1,5 @@
 FROM centos-phpfpm:1.0
-MAINTAINER "Pongsk Prabparn" <pongsak@rebatemango.com>
+MAINTAINER "Pongsak Prabparn" <pongsak@rebatemango.com>
 
 # update package
 
