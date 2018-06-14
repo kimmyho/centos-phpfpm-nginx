@@ -1,4 +1,4 @@
-FROM centos-phpfpm:1.0
+FROM pongsak/centos-phpfpm:3.0
 MAINTAINER "Pongsak Prabparn" <pongsak@rebatemango.com>
 
 # update package
@@ -10,8 +10,7 @@ RUN yum -y update
 RUN yum -y install nginx
 
 # Installing supervisor
-RUN yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm && \
-    yum -y install yum-utils && \
+RUN yum -y install yum-utils && \
     yum-config-manager --enable remi-php72 && \
     yum -y update && \
     yum clean all
