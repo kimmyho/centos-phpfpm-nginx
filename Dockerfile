@@ -1,30 +1,31 @@
-FROM pongsak/centos-phpfpm:3.0
+FROM pongsak/centos-phpfpm:4.0
 MAINTAINER "Pongsak Prabparn" <pongsak@rebatemango.com>
 
-# update package
-
-RUN yum -y update
 
 # Installing nginx
-#FROM nginx:1.14.0
 RUN yum -y install nginx
 
-# Installing supervisor
-RUN yum -y install yum-utils && \
-    yum-config-manager --enable remi-php72 && \
-    yum -y update && \
-    yum clean all
-
-
 # Adding the configuration file of the nginx
-ADD ./nginx/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 
-ADD ./nginx/00-default /etc/nginx/conf.d/default.conf
+COPY ./nginx/00-default /etc/nginx/conf.d/default.conf
 
-ADD index.php /var/www/html/index.php
+COPY index.php /var/www/html/index.php
+
+# start install supervisor
+RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" && \
+    python get-pip.py
+
+RUN pip install supervisor && \
+    supervisord --version
 
 # Adding the configuration file of the Supervisor
 COPY ./supervisord.conf /etc/supervisord.conf
+
+# install Composer and plugins
+RUN curl -sS https://getcomposer.org/installer | php
+RUN mv composer.phar /usr/local/bin/composer
+RUN chmod +x /usr/local/bin/composer
 
 # Set the port to 80 
 EXPOSE 80
